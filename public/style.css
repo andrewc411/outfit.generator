@@ -48,12 +48,6 @@
     }
 }
 
-
-.header:hover{
-    opacity: 1;
-    transition: .8s;
-}
-
 .animate__animated .animate__fadeInUp{
     /* --animation-delay: 2s; */
     --animation-duration: 4s;
@@ -61,7 +55,7 @@
 
 a{
     font-size: 20px;
-    color: beige;
+    color: burlywood;
     text-decoration: none;
     margin-top: -100px;
     margin-bottom: 100px;
