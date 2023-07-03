@@ -4,24 +4,20 @@ const path = require('path');
 
 const app = express();
 
+// Serve static files
+app.use(express.static(path.join(__dirname, 'public')));
+
 const storage = multer.diskStorage({
-    destination: './uploads/',
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    }
-  });
-  const upload = multer({ storage: storage });
+  destination: './uploads/',
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
 
-  app.post('/upload', upload.single('photo'), (req, res) => {
-    res.send('Photo uploaded successfully!');
-  });
+const upload = multer({ storage: storage });
 
-  app.get('/photos/:filename', (req, res) => {
-    const filename = req.params.filename;
-    res.sendFile(path.join(__dirname, 'uploads', filename));
-  });
 
-  const port = 3000;
+const port = 3000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

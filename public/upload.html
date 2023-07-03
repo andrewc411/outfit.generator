@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Upload and Preview</title>
+  <link rel="stylesheet" href="upload.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <input type="file" id="file-input" accept="image/png, image/jpg, image/jpeg, image/webp" onchange="preview()" multiple>
+    
+        <label for="file-input">
+            <i class="fa fa-upload" style="color:#ADD8E6; font-size:30px"></i>
+            Upload Your Photos
+        </label>
+    
+        <p id="num-of-files">No Files Chosen</p> 
+    
+        <div id="images"></div>
+    
+        <script src="../server.js"></script>
+</body>
+</html>
