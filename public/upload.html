@@ -7,18 +7,77 @@
 </head>
 <body>
     <div class="container">
-        <input type="file" id="file-input" accept="image/png, image/jpg, image/jpeg, image/webp" onchange="preview()" multiple>
+        <input type="file" id="file-input" accept="image/png, image/jpg, image/jpeg, image/webp" onchange="handleFileSelection()" multiple>
     
         <label for="file-input">
             <i class="fa fa-upload" style="color:#ADD8E6; font-size:30px"></i>
-            Upload Your Photos
+            Select Your Photos
         </label>
     
         <p id="num-of-files">No Files Chosen</p> 
     
         <div id="images"></div>
     
-        <!-- <script src="../server.js"></script> -->
-        <script src="upload.js"></script>
+        <form id="uploadForm" enctype="multipart/form-data">
+          <input type="text" name="parameter" id="parameterInput" placeholder="Parameter" style="display: none;">
+          <button type="submit" style="display: none;">Upload</button>
+        </form>
+    </div>
+
+    <script>
+      const fileInput = document.getElementById('file-input');
+      const numOfFiles = document.getElementById('num-of-files');
+      const uploadForm = document.getElementById('uploadForm');
+      const parameterInput = document.getElementById('parameterInput');
+      const imagesContainer = document.getElementById('images');
+
+      function handleFileSelection() {
+        const files = fileInput.files;
+        const numOfFilesText = files.length > 0 ? `${files.length} File(s) Selected` : 'No Files Chosen';
+        numOfFiles.textContent = numOfFilesText;
+
+        if (files.length > 0) {
+          showUploadForm();
+          preview(files);
+        } else {
+          hideUploadForm();
+          clearPreview();
+        }
+      }
+
+      function showUploadForm() {
+        uploadForm.style.display = 'block';
+        parameterInput.style.display = 'block';
+        uploadForm.style.display = 'block';
+      }
+
+      function hideUploadForm() {
+        uploadForm.style.display = 'none';
+        parameterInput.style.display = 'none';
+        uploadForm.style.display = 'none';
+      }
+
+      function preview(files) {
+        imagesContainer.innerHTML = '';
+
+        for (let i = 0; i < files.length; i++) {
+          const reader = new FileReader();
+          const img = document.createElement('img');
+          img.setAttribute('class', 'preview-image');
+
+          reader.onload = (e) => {
+            img.src = e.target.result;
+          };
+
+          reader.readAsDataURL(files[i]);
+          imagesContainer.appendChild(img);
+        }
+      }
+
+      function clearPreview() {
+        imagesContainer.innerHTML = '';
+      }
+    </script>
+    <script src="upload.js"></script>
 </body>
 </html>

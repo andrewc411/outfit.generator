@@ -1,7 +1,7 @@
 // import clothes from './array.js'
 
 const tshirt = [
-    'img/jcole.webp',
+    '../img/jcole.webp',
     'img/gorillaz.webp',
     'img/no_face.webp',
     'img/ratm.webp',
