@@ -21,7 +21,7 @@
     animation: fadeInAnimation ease 4s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
-    animation-delay: 1s;
+    animation-delay: .5s;
 }
 @keyframes fadeInAnimation {
     0% {
@@ -37,7 +37,7 @@
     animation: fadeInAnimation ease 4s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
-    animation-delay: 3.5s;
+    animation-delay: 2.5s;
 }
 @keyframes fadeInAnimation {
     0% {
@@ -53,6 +53,12 @@
     opacity: 1;
     transition: .8s;
 }
+
+.animate__animated .animate__fadeInUp{
+    /* --animation-delay: 2s; */
+    --animation-duration: 4s;
+}
+
 a{
     font-size: 20px;
     color: beige;
