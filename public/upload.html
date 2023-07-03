@@ -19,64 +19,79 @@
         <div id="images"></div>
     
         <form id="uploadForm" enctype="multipart/form-data">
-          <input type="text" name="parameter" id="parameterInput" placeholder="Parameter" style="display: none;">
+          <!-- <input type="text" name="parameter" id="parameterInput" placeholder="Parameter" style="display: none;"> -->
+          <div id="parameterContainer"></div>
           <button type="submit" style="display: none;">Upload</button>
         </form>
     </div>
 
     <script>
       const fileInput = document.getElementById('file-input');
-      const numOfFiles = document.getElementById('num-of-files');
-      const uploadForm = document.getElementById('uploadForm');
-      const parameterInput = document.getElementById('parameterInput');
-      const imagesContainer = document.getElementById('images');
+const numOfFiles = document.getElementById('num-of-files');
+const uploadForm = document.getElementById('uploadForm');
+const parameterContainer = document.getElementById('parameterContainer');
+const imagesContainer = document.getElementById('images');
 
-      function handleFileSelection() {
-        const files = fileInput.files;
-        const numOfFilesText = files.length > 0 ? `${files.length} File(s) Selected` : 'No Files Chosen';
-        numOfFiles.textContent = numOfFilesText;
+fileInput.addEventListener('change', handleFileSelection);
 
-        if (files.length > 0) {
-          showUploadForm();
-          preview(files);
-        } else {
-          hideUploadForm();
-          clearPreview();
-        }
-      }
+function handleFileSelection() {
+  const files = fileInput.files;
+  const numOfFilesText = files.length > 0 ? `${files.length} File(s) Selected` : 'No Files Chosen';
+  numOfFiles.textContent = numOfFilesText;
 
-      function showUploadForm() {
-        uploadForm.style.display = 'block';
-        parameterInput.style.display = 'block';
-        uploadForm.style.display = 'block';
-      }
+  if (files.length > 0) {
+    showUploadForm();
+    generateParameterFields(files.length);
+    preview(files);
+  } else {
+    hideUploadForm();
+    clearPreview();
+  }
+}
 
-      function hideUploadForm() {
-        uploadForm.style.display = 'none';
-        parameterInput.style.display = 'none';
-        uploadForm.style.display = 'none';
-      }
+function showUploadForm() {
+  uploadForm.style.display = 'block';
+}
 
-      function preview(files) {
-        imagesContainer.innerHTML = '';
+function hideUploadForm() {
+  uploadForm.style.display = 'none';
+}
 
-        for (let i = 0; i < files.length; i++) {
-          const reader = new FileReader();
-          const img = document.createElement('img');
-          img.setAttribute('class', 'preview-image');
+function generateParameterFields(count) {
+  parameterContainer.innerHTML = '';
 
-          reader.onload = (e) => {
-            img.src = e.target.result;
-          };
+  for (let i = 0; i < count; i++) {
+    const label = document.createElement('label');
+    label.textContent = `Image ${i + 1}`;
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.name = `parameter${i + 1}`;
+    input.placeholder = `Pick clothing category`;
+    parameterContainer.appendChild(label);
+    parameterContainer.appendChild(input);
+  }
+}
 
-          reader.readAsDataURL(files[i]);
-          imagesContainer.appendChild(img);
-        }
-      }
+function preview(files) {
+  imagesContainer.innerHTML = '';
 
-      function clearPreview() {
-        imagesContainer.innerHTML = '';
-      }
+  for (let i = 0; i < files.length; i++) {
+    const reader = new FileReader();
+    const img = document.createElement('img');
+    img.setAttribute('class', 'preview-image');
+
+    reader.onload = (e) => {
+      img.src = e.target.result;
+    };
+
+    reader.readAsDataURL(files[i]);
+    imagesContainer.appendChild(img);
+  }
+}
+
+function clearPreview() {
+  imagesContainer.innerHTML = '';
+}
     </script>
     <script src="upload.js"></script>
 </body>
